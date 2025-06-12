@@ -1,0 +1,47 @@
+# kimmdy_hydrolysis.minisasa { #kimmdy_hydrolysis.minisasa }
+
+`minisasa`
+
+Inspired by SASAAnalysis: <https://github.com/pegerto/mdakit_sasa>
+
+to get multiple SASA's (for different atoms) in one go and not have to
+rebuild the strucuture every time.
+
+## Classes
+
+| Name | Description |
+| --- | --- |
+| [MiniSasa](#kimmdy_hydrolysis.minisasa.MiniSasa) | A class to calculate SASA for a given MDAnalysis Universe. |
+
+### MiniSasa { #kimmdy_hydrolysis.minisasa.MiniSasa }
+
+`minisasa.MiniSasa(self, u, mda_selection='not resname SOL and not resname CL and not resname NA')`
+
+A class to calculate SASA for a given MDAnalysis Universe.
+This class allows for the calculation of SASA for multiple atoms in a single structure
+without the need to rebuild the structure each time.
+It uses the FreeSASA library for the calculations.
+
+#### Methods
+
+| Name | Description |
+| --- | --- |
+| [update_structure](#kimmdy_hydrolysis.minisasa.MiniSasa.update_structure) | FreeSasa structure accepts PDBS if not available requires to reconstruct the structure using `addAtom` |
+
+##### update_structure { #kimmdy_hydrolysis.minisasa.MiniSasa.update_structure }
+
+`minisasa.MiniSasa.update_structure()`
+
+FreeSasa structure accepts PDBS if not available requires to reconstruct the structure using `addAtom`
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [get_baseline_sasa](#kimmdy_hydrolysis.minisasa.get_baseline_sasa) | Calculate the SASA of a C in the peptide bond of a capped GLY-GLY didpeptide |
+
+### get_baseline_sasa { #kimmdy_hydrolysis.minisasa.get_baseline_sasa }
+
+`minisasa.get_baseline_sasa()`
+
+Calculate the SASA of a C in the peptide bond of a capped GLY-GLY didpeptide

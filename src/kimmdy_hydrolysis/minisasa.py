@@ -1,5 +1,5 @@
 """
-Based on SASAAnalysis: <https://github.com/pegerto/mdakit_sasa>
+Inspired by SASAAnalysis: <https://github.com/pegerto/mdakit_sasa>
 
 to get multiple SASA's (for different atoms) in one go and not have to
 rebuild the strucuture every time.
@@ -17,6 +17,11 @@ logger = logging.getLogger("kimmdy.hydrolysis")
 freesasa.setVerbosity(freesasa.silent)
 
 class MiniSasa:
+    """A class to calculate SASA for a given MDAnalysis Universe.
+    This class allows for the calculation of SASA for multiple atoms in a single structure
+    without the need to rebuild the structure each time.
+    It uses the FreeSASA library for the calculations.
+    """
     def __init__(self, u: mda.Universe, mda_selection: str = "not resname SOL and not resname CL and not resname NA"):
         self.u = u
         self.mda_selection = mda_selection

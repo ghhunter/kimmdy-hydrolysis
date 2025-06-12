@@ -4,6 +4,10 @@ website:
     - _reference/index.qmd
     - contents:
       - _reference/kimmdy_hydrolysis.reaction.qmd
+      - _reference/kimmdy_hydrolysis.rates.qmd
+      - _reference/kimmdy_hydrolysis.minisasa.qmd
+      - _reference/kimmdy_hydrolysis.utils.qmd
+      - _reference/kimmdy_hydrolysis.constants.qmd
       section: Hydrolysis
     id: _reference
   - id: dummy-sidebar

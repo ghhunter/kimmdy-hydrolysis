@@ -5,3 +5,7 @@
 | | |
 | --- | --- |
 | [kimmdy_hydrolysis.reaction](kimmdy_hydrolysis.reaction.qmd#kimmdy_hydrolysis.reaction) |  |
+| [kimmdy_hydrolysis.rates](kimmdy_hydrolysis.rates.qmd#kimmdy_hydrolysis.rates) |  |
+| [kimmdy_hydrolysis.minisasa](kimmdy_hydrolysis.minisasa.qmd#kimmdy_hydrolysis.minisasa) | Inspired by SASAAnalysis: <https://github.com/pegerto/mdakit_sasa> |
+| [kimmdy_hydrolysis.utils](kimmdy_hydrolysis.utils.qmd#kimmdy_hydrolysis.utils) |  |
+| [kimmdy_hydrolysis.constants](kimmdy_hydrolysis.constants.qmd#kimmdy_hydrolysis.constants) |  |

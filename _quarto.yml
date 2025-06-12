@@ -84,4 +84,9 @@ quartodoc:
     - title: Hydrolysis
       contents:
         - kimmdy_hydrolysis.reaction
+        - kimmdy_hydrolysis.rates
+        - kimmdy_hydrolysis.minisasa
+        - kimmdy_hydrolysis.utils
+        - kimmdy_hydrolysis.constants
+
 

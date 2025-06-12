@@ -39,18 +39,3 @@ Transforms an array of times into a list of time intervals
 times are an array of times at which the SASA was calculated
 timespans are the time intervals between those times
 as tuples of (start, end)
-
-## Functions
-
-| Name | Description |
-| --- | --- |
-| [theoretical_reaction_rate_per_s](#kimmdy_hydrolysis.reaction.theoretical_reaction_rate_per_s) | Calculate reaction rate in 1/s |
-
-### theoretical_reaction_rate_per_s { #kimmdy_hydrolysis.reaction.theoretical_reaction_rate_per_s }
-
-`reaction.theoretical_reaction_rate_per_s(force=0, ts1=80, ts2=92, ts1_force_scaling=1.67, ts2_force_scaling=25.83, A=100000000000.0, temperature=300, ph_value=7.4)`
-
-Calculate reaction rate in 1/s
-
-see SI of pill et al. 2019
-<http://dx.doi.org/10.1002/anie.201902752>
