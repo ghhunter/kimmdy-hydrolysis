@@ -4,6 +4,7 @@ from kimmdy_hydrolysis.constants import K_b, T_EXPERIMENT
 
 logger = logging.getLogger("kimmdy.hydrolysis")
 
+
 def e_ts1(
     force: float = 0,
     ts1: float = 80,
@@ -93,4 +94,3 @@ def theoretical_reaction_rate_per_s(
     logger.debug(f"TS1: {E_ts1} TS2: {E_ts2} Force: {force} k_hyd: {k_hyd}")
 
     return k_hyd
-

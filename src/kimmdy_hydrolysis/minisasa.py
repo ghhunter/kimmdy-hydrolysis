@@ -16,13 +16,19 @@ logger = logging.getLogger("kimmdy.hydrolysis")
 
 freesasa.setVerbosity(freesasa.silent)
 
+
 class MiniSasa:
     """A class to calculate SASA for a given MDAnalysis Universe.
     This class allows for the calculation of SASA for multiple atoms in a single structure
     without the need to rebuild the structure each time.
     It uses the FreeSASA library for the calculations.
     """
-    def __init__(self, u: mda.Universe, mda_selection: str = "not resname SOL and not resname CL and not resname NA"):
+
+    def __init__(
+        self,
+        u: mda.Universe,
+        mda_selection: str = "not resname SOL and not resname CL and not resname NA",
+    ):
         self.u = u
         self.mda_selection = mda_selection
         self.structure = self.update_structure()
@@ -48,9 +54,11 @@ class MiniSasa:
             try:
                 resname = a.resname
             except NoDataError:
-                resname = 'ANY' # Default classifier value
+                resname = "ANY"  # Default classifier value
             try:
-                structure.addAtom(a.type.rjust(2), resname, a.resnum.item(), a.segid, x, y, z)
+                structure.addAtom(
+                    a.type.rjust(2), resname, a.resnum.item(), a.segid, x, y, z
+                )
             except Exception as e:
                 print(e)
                 print(a)

@@ -6,8 +6,16 @@ from typing import Any
 import MDAnalysis as mda
 from kimmdy.plugins import ReactionPlugin
 from kimmdy.constants import nN_per_kJ_per_mol_nm
-from kimmdy.recipe import (Bind, Break, CustomTopMod, DeferredRecipeSteps,
-                           Recipe, RecipeCollection, RecipeStep, Relax)
+from kimmdy.recipe import (
+    Bind,
+    Break,
+    CustomTopMod,
+    DeferredRecipeSteps,
+    Recipe,
+    RecipeCollection,
+    RecipeStep,
+    Relax,
+)
 from kimmdy.tasks import TaskFiles
 from kimmdy.topology.atomic import Bond
 from kimmdy.topology.topology import Topology
@@ -15,11 +23,18 @@ from kimmdy.topology.utils import get_residue_by_bonding
 
 from kimmdy_hydrolysis.minisasa import MiniSasa
 from kimmdy_hydrolysis.utils import get_aproach_penalty, get_peptide_bonds_from_top
-from kimmdy.plugin_utils import bondstats_to_csv, bondstats_from_csv, calculate_bondstats
-from kimmdy_hydrolysis.rates import (experimental_reaction_rate_per_s,
-                                        theoretical_reaction_rate_per_s)
+from kimmdy.plugin_utils import (
+    bondstats_to_csv,
+    bondstats_from_csv,
+    calculate_bondstats,
+)
+from kimmdy_hydrolysis.rates import (
+    experimental_reaction_rate_per_s,
+    theoretical_reaction_rate_per_s,
+)
 
 logger = logging.getLogger("kimmdy.hydrolysis")
+
 
 class HydrolysisReaction(ReactionPlugin):
     """Hydrolyses peptide bonds of the backbone."""
@@ -73,7 +88,13 @@ class HydrolysisReaction(ReactionPlugin):
                     m = f"External force not specified but no plumed file found"
                     logger.error(m)
                     raise ValueError(m)
-                self.bondstats = calculate_bondstats(top=self.runmng.top, plumed_in=plumed_in, plumed_out=plumed_out, dt=self.config.dt_distances, edissoc_dat=files.input["edissoc.dat"])
+                self.bondstats = calculate_bondstats(
+                    top=self.runmng.top,
+                    plumed_in=plumed_in,
+                    plumed_out=plumed_out,
+                    dt=self.config.dt_distances,
+                    edissoc_dat=files.input["edissoc.dat"],
+                )
                 self.cache_bondstats()
 
         logger.info(f"Got {len(self.times)} times for SASA calculation")
@@ -154,9 +175,7 @@ class HydrolysisReaction(ReactionPlugin):
             rates.append(sasa_scaling * k_hyd)
         return rates
 
-    def get_steps_for_id_c_at_t(
-        self, key: str, ttime: float
-    ) -> list[RecipeStep]:
+    def get_steps_for_id_c_at_t(self, key: str, ttime: float) -> list[RecipeStep]:
         """Get the steps for a given bond at a given time.
 
         The bond is identified by the atom id of the C atom.
@@ -192,7 +211,9 @@ class HydrolysisReaction(ReactionPlugin):
         frame = int(ttime / self.ps_per_frame)
         snapshot = self.u.trajectory[frame]
 
-        logger.info(f"Trajectory time: {self.u.trajectory.time:.3f} ps at frame {frame}")
+        logger.info(
+            f"Trajectory time: {self.u.trajectory.time:.3f} ps at frame {frame}"
+        )
         logger.info(f"Time from runmanager: {ttime} ps")
         logger.info(f"Time of u.trajectory: {snapshot.time:.3f} ps")
 
@@ -351,9 +372,11 @@ class HydrolysisReaction(ReactionPlugin):
             m = "No xtc file found"
             logger.error(m)
             raise ValueError(m)
-        logger.info(f"Using xtc {self.xtc.name} in {self.xtc.parent.name} for trajectory")
-        self.sasafile = self.xtc.with_name('.kimmdy.sasa')
-        self.bondstatsfile = self.xtc.with_name('.kimmdy.bondstats')
+        logger.info(
+            f"Using xtc {self.xtc.name} in {self.xtc.parent.name} for trajectory"
+        )
+        self.sasafile = self.xtc.with_name(".kimmdy.sasa")
+        self.bondstatsfile = self.xtc.with_name(".kimmdy.bondstats")
 
         md_instance = self.xtc.stem
         timings = self.runmng.timeinfos.get(md_instance)
@@ -394,13 +417,15 @@ class HydrolysisReaction(ReactionPlugin):
         frame = self.u.trajectory[0]
 
     def calculate_sasa(self):
-        logger.info(f"Calculating SASA for {len(self.peptide_bonds)} bonds. Step={self.step}")
+        logger.info(
+            f"Calculating SASA for {len(self.peptide_bonds)} bonds. Step={self.step}"
+        )
         logger.info(f"Universe has {len(self.u.trajectory)} frames")
         self.times = []
         self.sasa_per_bond = {k: [] for k in self.peptide_bonds.keys()}
         sasa = MiniSasa(self.u)
         # skip the first frame
-        for frame in self.u.trajectory[1::self.nframes_stepsize]:
+        for frame in self.u.trajectory[1 :: self.nframes_stepsize]:
             time = round(frame.time, 3)
             logger.debug(
                 f"Calculating SASA for frame {frame.frame} with time rounded {time}"
@@ -488,12 +513,12 @@ def write_sasa_free(
     times: list[float],
     sasa_per_bond: dict[str, list[float]],
     metadata: dict[str, Any],
-    path: str | Path
+    path: str | Path,
 ) -> None:
     with open(path, "w") as f:
         # header with metadata
         # df, xtc_trr_ratio, dt, step, ps_per_frame, nframes_stepsize,
-        f.write('---meta\n')
+        f.write("---meta\n")
         for key, value in metadata.items():
             f.write(f"{key} = {value}\n")
 
@@ -509,9 +534,10 @@ def write_sasa_free(
             for s in sasas:
                 f.write(f"{s}\n")
 
+
 def read_sasa_free(
-    path: str | Path
-) -> None|tuple[dict, list[float], dict[str, list[float]]]:
+    path: str | Path,
+) -> None | tuple[dict, list[float], dict[str, list[float]]]:
     with open(path, "r") as f:
         l = f.readline()
         if not l.startswith("---meta"):
@@ -552,6 +578,5 @@ def read_sasa_free(
             else:
                 sasa_per_bond[k].append(float(l.strip()))
             l = f.readline()
-
 
     return metadata, times, sasa_per_bond
