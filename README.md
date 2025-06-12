@@ -4,4 +4,3 @@ A reaction plugin for [KIMMDY](https://graeter-group.github.io/kimmdy/) that hyd
 
 Documentation: <https://graeter-group.github.io/kimmdy-hydrolysis/>
 
-
