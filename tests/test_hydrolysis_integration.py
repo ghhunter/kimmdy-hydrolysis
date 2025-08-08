@@ -13,7 +13,7 @@ def read_last_line(file):
                 f.seek(-2,os.SEEK_CUR)
         except OSError:
             f.seek(0)
-    return f.readline().decode()
+        return f.readline().decode()
 
 @pytest.mark.parametrize(
         "arranged_tmp_path", (["test_hydrolysis_integration"]), indirect=True
