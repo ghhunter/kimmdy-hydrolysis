@@ -20,7 +20,6 @@ def read_last_line(file):
 @pytest.mark.parametrize(
     "arranged_tmp_path", (["test_hydrolysis_integration"]), indirect=True
 )
-@pytest.mark.slow
 def test_integration_hydrolysis_reaction(arranged_tmp_path):
     print(arranged_tmp_path)
     kimmdy_run()
