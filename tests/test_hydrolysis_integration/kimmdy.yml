@@ -23,7 +23,7 @@ reactions:
     kmc: rfkmc
     step: 1
     cutoff: 5
-    external_force: 0
+    external_force: 0.0
 sequence:
   - eq
   - reactions
