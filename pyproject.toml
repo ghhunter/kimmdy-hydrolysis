@@ -23,15 +23,20 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-cov",
     "statsmodels",
     "plotnine",
     "pandas",
     "numpy",
     "tox",
+    "tox-uv",
     "black",
     "jupyter",
     "griffe >= 0.33, < 1.0.0",
     "quartodoc",
+    "kimmdy_grappa",
+    "grappa-ff",
+    "torch"
 ]
 
 [project.entry-points."kimmdy.reaction_plugins"]
@@ -48,3 +53,11 @@ kimmdy_hydrolysis = ["*.json"]
 where = ["src"]
 namespaces = false
 
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
