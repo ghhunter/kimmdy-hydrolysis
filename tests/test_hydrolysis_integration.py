@@ -8,7 +8,6 @@ from kimmdy.utils import get_task_directories
 from kimmdy.constants import MARK_DONE, MARK_FINISHED
 
 
-
 def read_last_line(file):
     with open(file, "rb") as f:
         try:  # catch OSError in case of one line file
@@ -31,6 +30,7 @@ def test_integration_hydrolysis_reaction(arranged_tmp_path):
     assert "Finished running last task" in read_last_line(Path("run_prod.kimmdy.log"))
     assert len(list(Path.cwd().glob("run_prod/*"))) == 11
 
+
 @pytest.mark.parametrize(
     "arranged_tmp_path", (["test_hydrolysis_integration"]), indirect=True
 )
@@ -51,9 +51,7 @@ def test_integration_hydrolysis_restart(arranged_tmp_path):
     kimmdy_run(input=Path("kimmdy_restart.yml"))
     n_files_continue_md = len(list(run_dir.glob("*")))
 
-    assert "Finished running last task" in read_last_line(
-        Path("run_prod.kimmdy.log")
-    )
+    assert "Finished running last task" in read_last_line(Path("run_prod.kimmdy.log"))
     assert n_files_original == n_files_continue_md == 11
 
     # try restart from finished md
@@ -63,7 +61,5 @@ def test_integration_hydrolysis_restart(arranged_tmp_path):
     kimmdy_run(input=Path("kimmdy_restart.yml"))
     n_files_restart = len(list(run_dir.glob("*")))
 
-    assert "Finished running last task" in read_last_line(
-        Path("run_prod.kimmdy.log")
-    )
+    assert "Finished running last task" in read_last_line(Path("run_prod.kimmdy.log"))
     assert n_files_original == n_files_restart == 11
